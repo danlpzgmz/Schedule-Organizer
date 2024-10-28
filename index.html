@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task and Appointment Organizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .appointment-form, .appointment-list {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .appointment-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .appointment-item {
+            padding: 8px;
+            margin: 5px 0;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="appointment-form">
+        <h2>Schedule Appointment</h2>
+        <label for="appointment-type">Type:</label>
+        <select id="appointment-type">
+            <option value="online">Online</option>
+            <option value="in-person">In Person</option>
+        </select><br><br>
+
+        <label for="appointment-date">Date:</label>
+        <input type="date" id="appointment-date"><br><br>
+
+        <label for="appointment-time">Time:</label>
+        <input type="time" id="appointment-time"><br><br>
+
+        <button onclick="scheduleAppointment()">Schedule</button>
+    </div>
+
+    <div class="appointment-list">
+        <h2>Scheduled Appointments</h2>
+        <ul id="appointment-list"></ul>
+    </div>
+
+    <script>
+        const blockedTimes = ["12:00", "13:00"]; // Block out times like lunch break
+
+        function scheduleAppointment() {
+            const type = document.getElementById("appointment-type").value;
+            const date = document.getElementById("appointment-date").value;
+            const time = document.getElementById("appointment-time").value;
+
+            if (blockedTimes.includes(time)) {
+                alert("This time is blocked. Please choose another time.");
+                return;
+            }
+
+            const appointmentList = document.getElementById("appointment-list");
+            const listItem = document.createElement("li");
+            listItem.className = "appointment-item";
+            listItem.textContent = `${date} at ${time} - ${type}`;
+            appointmentList.appendChild(listItem);
+        }
+    </script>
+
+</body>
+</html>
